@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YachtWay Connect — Pricing</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #22222D;
+    --purple-mid: #534AB7;
+    --purple-light: #EEEDFE;
+    --white: #ffffff;
+    --off-white: #F7F6F3;
+    --border: rgba(34,34,45,0.1);
+    --text-secondary: #6B6B7A;
+    --text-tertiary: #9898A6;
+    --green: #0F6E56;
+    --green-light: #E1F5EE;
+  }
+
+  body { font-family: 'Poppins', sans-serif; background: var(--off-white); color: var(--charcoal); min-height: 100vh; }
+
+  .page-wrapper { max-width: 1200px; margin: 0 auto; padding: 72px 24px 100px; }
+
+  .header { text-align: center; margin-bottom: 40px; }
+  .header-eyebrow { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple-mid); background: var(--purple-light); padding: 6px 16px; border-radius: 100px; margin-bottom: 18px; }
+  .header h1 { font-size: 40px; font-weight: 600; color: var(--charcoal); line-height: 1.15; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .header p { font-size: 15px; color: var(--text-secondary); font-weight: 300; max-width: 440px; margin: 0 auto; line-height: 1.7; }
+
+  .billing-toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 48px; }
+  .billing-label { font-size: 13px; font-weight: 400; color: var(--text-secondary); transition: color 0.2s; }
+  .billing-label.active { color: var(--charcoal); font-weight: 500; }
+
+  .billing-switch { position: relative; width: 48px; height: 26px; flex-shrink: 0; }
+  .billing-switch input { opacity: 0; width: 0; height: 0; }
+  .billing-track { position: absolute; inset: 0; background: var(--border); border-radius: 26px; cursor: pointer; transition: background 0.25s; border: 1.5px solid rgba(34,34,45,0.15); }
+  .billing-track::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: var(--text-tertiary); border-radius: 50%; transition: transform 0.25s, background 0.25s; }
+  .billing-switch input:checked + .billing-track { background: var(--charcoal); border-color: var(--charcoal); }
+  .billing-switch input:checked + .billing-track::before { transform: translateX(22px); background: var(--white); }
+
+  .savings-pill { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: var(--green-light); color: var(--green); opacity: 0; transform: translateY(4px); transition: opacity 0.25s, transform 0.25s; white-space: nowrap; }
+  .savings-pill.visible { opacity: 1; transform: translateY(0); }
+
+  .tier-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 48px; align-items: start; }
+
+  .tier-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 28px 24px; position: relative; display: flex; flex-direction: column; transition: box-shadow 0.2s; }
+  .tier-card:hover { box-shadow: 0 4px 24px rgba(34,34,45,0.08); }
+  .tier-card.featured { border-color: var(--purple-mid); border-width: 2px; }
+
+  .featured-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--purple-mid); color: var(--white); font-size: 10px; font-weight: 500; padding: 4px 14px; border-radius: 100px; letter-spacing: 0.06em; white-space: nowrap; text-transform: uppercase; }
+
+  .tier-name { font-size: 18px; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+  .tier-tagline { font-size: 12px; color: var(--text-secondary); font-weight: 300; line-height: 1.55; margin-bottom: 20px; min-height: 52px; }
+
+  .price-block { margin-bottom: 20px; }
+  .price-was { font-size: 11px; color: var(--text-tertiary); text-decoration: line-through; height: 16px; opacity: 0; transition: opacity 0.2s; margin-bottom: 2px; }
+  .price-was.visible { opacity: 1; }
+  .price-row { display: flex; align-items: baseline; gap: 3px; margin-bottom: 3px; }
+  .price-from { font-size: 12px; color: var(--text-tertiary); font-weight: 300; }
+  .price-amount { font-size: 32px; font-weight: 600; color: var(--charcoal); letter-spacing: -0.02em; line-height: 1; transition: all 0.2s; }
+  .price-suffix { font-size: 11px; color: var(--text-secondary); font-weight: 300; line-height: 1.4; }
+  .price-note { font-size: 11px; color: var(--text-tertiary); font-weight: 300; min-height: 16px; }
+  .annual-save-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 100px; background: var(--green-light); color: var(--green); margin-top: 4px; opacity: 0; transition: opacity 0.2s; }
+  .annual-save-tag.visible { opacity: 1; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+  .section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .feature-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text-secondary); font-weight: 300; line-height: 1.5; }
+  .feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--purple-mid); margin-top: 5px; flex-shrink: 0; }
+
+  .collapsible { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .collapsible-trigger { display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; padding: 2px 0; }
+  .collapsible-label { font-size: 11px; color: var(--text-tertiary); font-weight: 400; }
+  .chevron { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.25s; color: var(--text-tertiary); }
+  .chevron.open { transform: rotate(180deg); }
+  .collapsible-body { overflow: hidden; max-height: 0; transition: max-height 0.35s ease, opacity 0.25s ease; opacity: 0; }
+  .collapsible-body.open { max-height: 800px; opacity: 1; }
+  .inherited-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+  .inherited-item { display: flex; align-items: flex-start; gap: 8px; font-size: 11px; color: var(--text-tertiary); font-weight: 300; line-height: 1.5; }
+  .inherited-dot { width: 4px; height: 4px; border-radius: 50%; background: transparent; border: 1px solid var(--text-tertiary); margin-top: 5px; flex-shrink: 0; }
+
+  .app-badge { display: flex; align-items: center; gap: 8px; background: var(--off-white); border-radius: 10px; padding: 10px 12px; margin-top: 16px; }
+  .app-icon { width: 28px; height: 28px; background: var(--charcoal); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .app-icon svg { width: 14px; height: 14px; fill: var(--white); }
+  .app-text-main { font-size: 11px; font-weight: 500; color: var(--charcoal); }
+  .app-text-sub { font-size: 10px; color: var(--text-tertiary); font-weight: 300; }
+
+  .estimator-section { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 36px 40px; }
+  .estimator-title { font-size: 17px; font-weight: 500; color: var(--charcoal); margin-bottom: 3px; }
+  .estimator-sub { font-size: 12px; color: var(--text-tertiary); font-weight: 300; margin-bottom: 28px; }
+
+  .estimator-body { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+  .tier-select-row { display: flex; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
+  .tier-pill { padding: 7px 16px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500; border-radius: 100px; border: 1.5px solid var(--border); background: var(--white); color: var(--text-secondary); cursor: pointer; transition: all 0.15s; }
+  .tier-pill:hover { border-color: var(--purple-mid); color: var(--purple-mid); }
+  .tier-pill.active { background: var(--charcoal); color: var(--white); border-color: var(--charcoal); }
+
+  .slider-group { margin-bottom: 22px; }
+  .slider-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .slider-label-text { font-size: 13px; color: var(--text-secondary); font-weight: 400; }
+  .slider-value { font-size: 12px; font-weight: 500; color: var(--charcoal); background: var(--off-white); padding: 2px 10px; border-radius: 100px; min-width: 32px; text-align: center; }
+
+  input[type=range] { width: 100%; -webkit-appearance: none; appearance: none; height: 3px; background: var(--border); border-radius: 2px; outline: none; cursor: pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--charcoal); cursor: pointer; border: 3px solid var(--white); box-shadow: 0 0 0 1.5px var(--charcoal); }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--charcoal); border: 3px solid var(--white); box-shadow: 0 0 0 1.5px var(--charcoal); }
+
+  .addon-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--border); }
+  .addon-left { display: flex; align-items: center; gap: 10px; }
+  .addon-label { font-size: 13px; color: var(--text-secondary); }
+  .addon-price-tag { font-size: 12px; color: var(--text-tertiary); }
+
+  .toggle-switch { position: relative; width: 34px; height: 19px; flex-shrink: 0; }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: rgba(34,34,45,0.15); border-radius: 20px; cursor: pointer; transition: background 0.2s; }
+  .toggle-slider::before { content: ''; position: absolute; width: 13px; height: 13px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: transform 0.2s; }
+  .toggle-switch input:checked + .toggle-slider { background: var(--purple-mid); }
+  .toggle-switch input:checked + .toggle-slider::before { transform: translateX(15px); }
+
+  .results-stack { display: flex; flex-direction: column; gap: 10px; }
+  .result-metric { background: var(--off-white); border-radius: 12px; padding: 14px 18px; }
+  .result-metric.primary { background: var(--charcoal); padding: 20px 22px; }
+  .result-label { font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .result-metric.primary .result-label { color: rgba(255,255,255,0.45); }
+  .result-value { font-size: 22px; font-weight: 600; color: var(--charcoal); letter-spacing: -0.01em; transition: all 0.2s; }
+  .result-metric.primary .result-value { color: var(--white); font-size: 30px; }
+  .result-saving { font-size: 12px; font-weight: 500; color: #5DCAA5; margin-top: 3px; height: 18px; opacity: 0; transition: opacity 0.25s; }
+  .result-saving.visible { opacity: 1; }
+
+  .breakdown-section { margin-top: 16px; display: flex; flex-direction: column; gap: 5px; }
+  .breakdown-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-tertiary); font-weight: 300; }
+  .breakdown-row.total { font-weight: 500; color: var(--charcoal); margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .cap-note-est { font-size: 11px; color: var(--text-tertiary); font-weight: 300; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); line-height: 1.6; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  @media (max-width: 960px) {
+    .tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tier-card .tier-tagline { min-height: unset; }
+  }
+  @media (max-width: 640px) {
+    .tier-grid { grid-template-columns: 1fr; }
+    .estimator-body { grid-template-columns: 1fr; gap: 28px; }
+    .header h1 { font-size: 28px; }
+    .estimator-section { padding: 24px 20px; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <div class="header">
+    <div class="header-eyebrow">YachtWay Connect</div>
+    <h1>Simple pricing.<br>Built for dealers.</h1>
+    <p>One platform. One invoice. Everything your dealership needs to run.</p>
+  </div>
+
+  <div class="billing-toggle-wrap">
+    <span class="billing-label active" id="lbl-monthly">Monthly</span>
+    <label class="billing-switch">
+      <input type="checkbox" id="billing-toggle" onchange="setBilling(this.checked)">
+      <span class="billing-track"></span>
+    </label>
+    <span class="billing-label" id="lbl-annual">Annual</span>
+    <span class="savings-pill" id="savings-pill">Save 25% — paid upfront</span>
+  </div>
+
+  <div class="tier-grid">
+
+    <!-- BASIC -->
+    <div class="tier-card">
+      <div class="tier-name">Basic</div>
+      <div class="tier-tagline">Leads, contacts, inventory, and pipeline. The foundation every dealer needs.</div>
+      <div class="price-block">
+        <div class="price-was" id="was-basic">$50/broker seat/mo</div>
+        <div class="price-row">
+          <span class="price-from">from</span>&nbsp;
+          <span class="price-amount" id="price-basic">$50</span>
+          <span class="price-suffix">/broker<br>seat/mo</span>
+        </div>
+        <div class="price-note">Up to 5 broker seats</div>
+        <span class="annual-save-tag" id="save-basic">Save $150/broker seat/yr</span>
+      </div>
+      <hr class="divider">
+      <div class="section-label">Included</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-dot"></span><span>Opportunities and pipeline management</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Leads and contacts</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Contact customers directly from YachtWay Connect</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>My Brands</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Inventory — auto sync to YachtWay MLS</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Auto connect email provider for communication sync</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Tasks and calendar sync</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Marine pipeline with custom stages</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Broker-tracked listing share links</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>SMS included</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>WhatsApp available as $45/mo add-on</span></li>
+      </ul>
+      <div class="app-badge">
+        <div class="app-icon"><svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.36.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.54 4.02zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg></div>
+        <div><div class="app-text-main">YachtWay Connect app included</div><div class="app-text-sub">iOS and Android. Every plan.</div></div>
+      </div>
+    </div>
+
+    <!-- ADVANCED -->
+    <div class="tier-card featured">
+      <div class="featured-badge">Most popular</div>
+      <div class="tier-name">Advanced</div>
+      <div class="tier-tagline">Full communications, automations, boat show tools, and invoicing.</div>
+      <div class="price-block">
+        <div class="price-was" id="was-advanced">$65/broker seat/mo</div>
+        <div class="price-row">
+          <span class="price-from">from</span>&nbsp;
+          <span class="price-amount" id="price-advanced">$65</span>
+          <span class="price-suffix">/broker<br>seat/mo</span>
+        </div>
+        <div class="price-note">Minimum 3 broker seats</div>
+        <span class="annual-save-tag" id="save-advanced">Save $195/broker seat/yr</span>
+      </div>
+      <hr class="divider">
+      <div class="section-label">What is new in Advanced</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-dot"></span><span>WhatsApp integration for 1 business number</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Automated multi-channel follow-up sequences</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Boat show NFC and QR lead capture check-in</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Email marketing — listings turn into email campaigns with one click</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>MatchMaker buyer-to-inventory matching</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Invoices with Xero and QuickBooks sync</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Payments</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Social media planner — schedule and publish posts across platforms</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Facebook Messenger built in</span></li>
+      </ul>
+      <div class="collapsible">
+        <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+          <span class="collapsible-label">Everything in Basic</span>
+          <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="collapsible-body">
+          <ul class="inherited-list">
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Opportunities and pipeline management</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Leads and contacts</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Contact customers directly from YachtWay Connect</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>My Brands</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Inventory — auto sync to YachtWay MLS</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Auto connect email provider for communication sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Tasks and calendar sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Marine pipeline with custom stages</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Broker-tracked listing share links</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>SMS included</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="app-badge">
+        <div class="app-icon"><svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.36.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.54 4.02zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg></div>
+        <div><div class="app-text-main">YachtWay Connect app included</div><div class="app-text-sub">iOS and Android. Every plan.</div></div>
+      </div>
+    </div>
+
+    <!-- PRO -->
+    <div class="tier-card">
+      <div class="tier-name">Pro</div>
+      <div class="tier-tagline">Full platform for dealerships running sales and a service department.</div>
+      <div class="price-block">
+        <div class="price-was" id="was-pro">$75/broker seat/mo</div>
+        <div class="price-row">
+          <span class="price-from">from</span>&nbsp;
+          <span class="price-amount" id="price-pro">$75</span>
+          <span class="price-suffix">/broker<br>seat/mo</span>
+        </div>
+        <div class="price-note">+ $29/tech seat/mo &nbsp;·&nbsp; min 3 broker + 1 tech</div>
+        <span class="annual-save-tag" id="save-pro">Save $225/broker seat/yr</span>
+      </div>
+      <hr class="divider">
+      <div class="section-label">What is new in Pro</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-dot"></span><span>Ad Manager — run Google, Facebook, and LinkedIn ads from one dashboard</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Service department module</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Repair orders, parts tickets, and scheduling</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Service video reports with owner approval and payment link</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>eSignatures included</span></li>
+      </ul>
+      <div class="collapsible">
+        <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+          <span class="collapsible-label">Everything in Basic and Advanced</span>
+          <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="collapsible-body">
+          <ul class="inherited-list">
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Opportunities and pipeline management</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Leads and contacts</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Contact customers directly from YachtWay Connect</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>My Brands</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Inventory — auto sync to YachtWay MLS</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Auto connect email provider for communication sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Tasks and calendar sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Marine pipeline with custom stages</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Broker-tracked listing share links</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>SMS included</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>WhatsApp integration for 1 business number</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Automated multi-channel follow-up sequences</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Boat show NFC and QR lead capture check-in</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Email marketing — listings turn into email campaigns</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>MatchMaker buyer-to-inventory matching</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Invoices with Xero and QuickBooks sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Payments</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Social media planner</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Facebook Messenger built in</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="app-badge">
+        <div class="app-icon"><svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.36.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.54 4.02zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg></div>
+        <div><div class="app-text-main">YachtWay Connect app included</div><div class="app-text-sub">iOS and Android. Every plan.</div></div>
+      </div>
+    </div>
+
+    <!-- PRO+ -->
+    <div class="tier-card">
+      <div class="tier-name">Pro+</div>
+      <div class="tier-tagline">Full platform plus the AI layer — instant lead response, health monitoring, and smart follow-up.</div>
+      <div class="price-block">
+        <div class="price-was" id="was-proplus">$110/broker seat/mo</div>
+        <div class="price-row">
+          <span class="price-from">from</span>&nbsp;
+          <span class="price-amount" id="price-proplus">$110</span>
+          <span class="price-suffix">/broker<br>seat/mo</span>
+        </div>
+        <div class="price-note">+ $29/tech seat/mo &nbsp;·&nbsp; min 3 broker + 1 tech</div>
+        <span class="annual-save-tag" id="save-proplus">Save $330/broker seat/yr</span>
+      </div>
+      <hr class="divider">
+      <div class="section-label">What is new in Pro+</div>
+      <ul class="feature-list">
+        <li class="feature-item"><span class="feature-dot"></span><span>1 AI voice agent included — instant response to customers upon lead form submission, routed to the correct broker</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>AI-generated follow-up email drafts</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Dealer health monitoring and re-engagement</span></li>
+        <li class="feature-item"><span class="feature-dot"></span><span>Post-service AI video summaries</span></li>
+      </ul>
+      <div class="collapsible">
+        <div class="collapsible-trigger" onclick="toggleCollapsible(this)">
+          <span class="collapsible-label">Everything in Basic, Advanced, and Pro</span>
+          <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="collapsible-body">
+          <ul class="inherited-list">
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Opportunities and pipeline management</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Leads and contacts</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Contact customers directly from YachtWay Connect</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>My Brands</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Inventory — auto sync to YachtWay MLS</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Auto connect email provider for communication sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Tasks and calendar sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Marine pipeline with custom stages</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Broker-tracked listing share links</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>SMS included</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>WhatsApp integration for 1 business number</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Automated multi-channel follow-up sequences</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Boat show NFC and QR lead capture check-in</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Email marketing — listings turn into email campaigns</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>MatchMaker buyer-to-inventory matching</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Invoices with Xero and QuickBooks sync</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Payments</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Social media planner</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Facebook Messenger built in</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Ad Manager — Google, Facebook, and LinkedIn</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Service department module</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Repair orders, parts tickets, and scheduling</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>Service video reports with owner approval and payment link</span></li>
+            <li class="inherited-item"><span class="inherited-dot"></span><span>eSignatures included</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="app-badge">
+        <div class="app-icon"><svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.37c1.36.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.39-1.32 2.76-2.54 4.02zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg></div>
+        <div><div class="app-text-main">YachtWay Connect app included</div><div class="app-text-sub">iOS and Android. Every plan.</div></div>
+      </div>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="tier-card" style="grid-column: 1 / -1; background: var(--charcoal); border-color: var(--charcoal);">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+        <div>
+          <div style="display:inline-block; font-size:10px; font-weight:500; letter-spacing:0.09em; text-transform:uppercase; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.7); padding:4px 12px; border-radius:100px; margin-bottom:14px;">Enterprise</div>
+          <div style="font-size:22px; font-weight:600; color:var(--white); margin-bottom:8px; letter-spacing:-0.01em;">20+ seats? Let us build your platform.</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.55); font-weight:300; line-height:1.7; margin-bottom:24px;">Custom pricing for large dealership groups and multi-location operations. Everything in Pro+ plus a fully tailored setup built around your business.</div>
+          <a href="mailto:hello@YachtWay.com" style="display:inline-block; background:var(--white); color:var(--charcoal); font-family:'Poppins',sans-serif; font-size:13px; font-weight:500; padding:12px 28px; border-radius:100px; text-decoration:none;">Contact us</a>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="background:rgba(255,255,255,0.07); border-radius:12px; padding:14px 16px;">
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.07em;">Dedicated IP</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.8); font-weight:300; line-height:1.5;">Your own dedicated sending IP for email deliverability at scale</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07); border-radius:12px; padding:14px 16px;">
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.07em;">Custom AI agents</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.8); font-weight:300; line-height:1.5;">Bespoke AI agent builds configured for your team and workflows</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07); border-radius:12px; padding:14px 16px;">
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.07em;">Any LLM</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.8); font-weight:300; line-height:1.5;">Choose your AI model — Claude, GPT, Gemini, or your own fine-tuned model</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07); border-radius:12px; padding:14px 16px;">
+            <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.07em;">Custom campaigns</div>
+            <div style="font-size:12px; color:rgba(255,255,255,0.8); font-weight:300; line-height:1.5;">Done-for-you campaign setup, ad strategy, and ongoing management</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ESTIMATOR -->
+  <div class="estimator-section">
+    <div class="estimator-title">Cost estimator</div>
+    <div class="estimator-sub">Select a plan and adjust seat counts to see your cost. The billing toggle above applies here too.</div>
+    <div class="estimator-body">
+      <div>
+        <div class="tier-select-row">
+          <button class="tier-pill active" onclick="setEstTier('basic')">Basic</button>
+          <button class="tier-pill" onclick="setEstTier('advanced')">Advanced</button>
+          <button class="tier-pill" onclick="setEstTier('pro')">Pro</button>
+          <button class="tier-pill" onclick="setEstTier('proplus')">Pro+</button>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label-text">Broker seats</span>
+            <span class="slider-value" id="broker-val">1</span>
+          </div>
+          <input type="range" id="broker-slider" min="1" max="5" step="1" value="1" oninput="updateCalc()">
+        </div>
+
+        <div class="slider-group" id="tech-group" style="display:none;">
+          <div class="slider-label-row">
+            <span class="slider-label-text">Tech seats</span>
+            <span class="slider-value" id="tech-val">1</span>
+          </div>
+          <input type="range" id="tech-slider" min="1" max="15" step="1" value="1" oninput="updateCalc()">
+        </div>
+
+        <div class="addon-row" id="wa-row" style="display:none;">
+          <div class="addon-left">
+            <label class="toggle-switch">
+              <input type="checkbox" id="wa-check" onchange="updateCalc()">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="addon-label">WhatsApp add-on</span>
+          </div>
+          <span class="addon-price-tag">$45/mo</span>
+        </div>
+
+        <div class="breakdown-section" id="breakdown"></div>
+        <div class="cap-note-est" id="cap-note"></div>
+      </div>
+
+      <div>
+        <div class="results-stack">
+          <div class="result-metric primary">
+            <div class="result-label" id="yr1-label">Year 1 total (incl. $2,500 setup)</div>
+            <div class="result-value" id="yr1-out">$3,100</div>
+            <div class="result-saving" id="yr1-saving">You save $0</div>
+          </div>
+          <div class="two-col">
+            <div class="result-metric">
+              <div class="result-label" id="period-label">Monthly</div>
+              <div class="result-value" id="monthly-out">$50</div>
+            </div>
+            <div class="result-metric">
+              <div class="result-label">Annual total</div>
+              <div class="result-value" id="annual-out">$600</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const BASE    = { basic:50, advanced:65, pro:75, proplus:110 };
+const TECH    = { basic:0,  advanced:0,  pro:29, proplus:29  };
+const MINS    = { basic:1,  advanced:3,  pro:3,  proplus:3   };
+const MAXS    = { basic:5,  advanced:20, pro:20, proplus:20  };
+const CAPS = {
+  basic:    'Capped at 5 broker seats. Dealerships that grow past 5 brokers move to Advanced.',
+  advanced: 'Minimum 3 broker seats. No cap.',
+  pro:      'Minimum 3 broker seats and 1 tech seat. No cap.',
+  proplus:  'Minimum 3 broker seats and 1 tech seat. No cap.'
+};
+
+let isAnnual = false;
+let estTier  = 'basic';
+
+function setBilling(annual) {
+  isAnnual = annual;
+  document.getElementById('lbl-monthly').classList.toggle('active', !annual);
+  document.getElementById('lbl-annual').classList.toggle('active', annual);
+  document.getElementById('savings-pill').classList.toggle('visible', annual);
+
+  ['basic','advanced','pro','proplus'].forEach(t => {
+    const monthly   = BASE[t];
+    const discounted = Math.round(monthly * 0.75);
+    const saving    = Math.round(monthly * 0.25 * 12);
+    document.getElementById('price-' + t).textContent = '$' + (annual ? discounted : monthly);
+    document.getElementById('was-'  + t).classList.toggle('visible', annual);
+    document.getElementById('save-' + t).textContent = 'Save $' + saving + '/broker seat/yr';
+    document.getElementById('save-' + t).classList.toggle('visible', annual);
+  });
+
+  updateCalc();
+}
+
+function setEstTier(t) {
+  estTier = t;
+  document.querySelectorAll('.tier-pill').forEach((b,i) => {
+    b.classList.toggle('active', ['basic','advanced','pro','proplus'][i] === t);
+  });
+  const bs = document.getElementById('broker-slider');
+  bs.min = MINS[t]; bs.max = MAXS[t]; bs.value = MINS[t];
+  document.getElementById('tech-group').style.display = TECH[t] > 0 ? 'block' : 'none';
+  if (TECH[t] > 0) document.getElementById('tech-slider').value = 1;
+  document.getElementById('wa-row').style.display = t === 'basic' ? 'flex' : 'none';
+  document.getElementById('wa-check').checked = false;
+  updateCalc();
+}
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+function updateCalc() {
+  const t             = estTier;
+  const brokerRate    = isAnnual ? Math.round(BASE[t] * 0.75) : BASE[t];
+  const bs            = parseInt(document.getElementById('broker-slider').value);
+  const ts            = TECH[t] > 0 ? parseInt(document.getElementById('tech-slider').value) : 0;
+  const wa            = t === 'basic' && document.getElementById('wa-check').checked;
+
+  document.getElementById('broker-val').textContent = bs;
+  if (TECH[t] > 0) document.getElementById('tech-val').textContent = ts;
+
+  const monthly        = bs * brokerRate + ts * TECH[t] + (wa ? 45 : 0);
+  const annualDisc     = bs * Math.round(BASE[t] * 0.75) * 12 + ts * TECH[t] * 12 + (wa ? 45*12 : 0);
+  const annualFull     = bs * BASE[t] * 12 + ts * TECH[t] * 12 + (wa ? 45*12 : 0);
+  const annualDisplay  = isAnnual ? annualDisc : annualFull;
+  const saving         = isAnnual ? (annualFull - annualDisc) : 0;
+
+  document.getElementById('monthly-out').textContent  = fmt(monthly);
+  document.getElementById('annual-out').textContent   = fmt(annualDisplay);
+  document.getElementById('yr1-out').textContent      = fmt(annualDisplay + 2500);
+  document.getElementById('period-label').textContent = isAnnual ? 'Effective monthly' : 'Monthly';
+  document.getElementById('yr1-label').textContent    = isAnnual ? 'Annual total (incl. $2,500 setup)' : 'Year 1 total (incl. $2,500 setup)';
+
+  const savingEl = document.getElementById('yr1-saving');
+  savingEl.textContent = 'You save ' + fmt(saving) + ' vs monthly billing';
+  savingEl.classList.toggle('visible', isAnnual && saving > 0);
+
+  let rows = `<div class="breakdown-row"><span>${bs} broker seat${bs>1?'s':''} x ${fmt(brokerRate)}</span><span>${fmt(bs*brokerRate)}/mo</span></div>`;
+  if (TECH[t] > 0) rows += `<div class="breakdown-row"><span>${ts} tech seat${ts>1?'s':''} x $29</span><span>${fmt(ts*29)}/mo</span></div>`;
+  if (wa) rows += `<div class="breakdown-row"><span>WhatsApp</span><span>$45/mo</span></div>`;
+  if (isAnnual) rows += `<div class="breakdown-row" style="color:var(--green);font-size:11px;"><span>25% annual discount applied</span><span></span></div>`;
+  rows += `<div class="breakdown-row total"><span>Total</span><span>${fmt(monthly)}/mo</span></div>`;
+  document.getElementById('breakdown').innerHTML = rows;
+  document.getElementById('cap-note').textContent = CAPS[t];
+}
+
+function toggleCollapsible(trigger) {
+  const body    = trigger.nextElementSibling;
+  const chevron = trigger.querySelector('.chevron');
+  const isOpen  = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+
+setEstTier('basic');
+</script>
+</body>
+</html>
