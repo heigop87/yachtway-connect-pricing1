@@ -170,6 +170,68 @@
     <span class="savings-pill" id="savings-pill">Save 25% — paid upfront</span>
   </div>
 
+  <!-- ESTIMATOR -->
+  <div class="estimator-section" style="margin-bottom:48px;">
+    <div class="estimator-title">Cost estimator</div>
+    <div class="estimator-sub">Select a plan and adjust seat counts to see your cost. The billing toggle above applies here too.</div>
+    <div class="estimator-body">
+      <div>
+        <div class="tier-select-row">
+          <button class="tier-pill active" onclick="setEstTier('basic')">Basic</button>
+          <button class="tier-pill" onclick="setEstTier('advanced')">Advanced</button>
+          <button class="tier-pill" onclick="setEstTier('pro')">Pro</button>
+          <button class="tier-pill" onclick="setEstTier('proplus')">Pro+</button>
+        </div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label-text">Broker seats</span>
+            <span class="slider-value" id="broker-val2">1</span>
+          </div>
+          <input type="range" id="broker-slider2" min="1" max="5" step="1" value="1" oninput="updateCalc()">
+        </div>
+        <div class="slider-group" id="tech-group2" style="display:none;">
+          <div class="slider-label-row">
+            <span class="slider-label-text">Tech seats</span>
+            <span class="slider-value" id="tech-val2">1</span>
+          </div>
+          <input type="range" id="tech-slider2" min="1" max="15" step="1" value="1" oninput="updateCalc()">
+        </div>
+        <div class="addon-row" id="wa-row2" style="display:none;">
+          <div class="addon-left">
+            <label class="toggle-switch">
+              <input type="checkbox" id="wa-check2" onchange="updateCalc()">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="addon-label">WhatsApp add-on</span>
+          </div>
+          <span class="addon-price-tag">$45/mo</span>
+        </div>
+        <div class="breakdown-section" id="breakdown2"></div>
+        <div class="cap-note-est" id="cap-note2"></div>
+      </div>
+      <div>
+        <div class="results-stack">
+          <div class="result-metric primary">
+            <div class="result-label" id="yr1-label2">Annual total</div>
+            <div class="result-value" id="yr1-out2">$600</div>
+            <div class="result-saving" id="yr1-saving2">You save $0</div>
+          </div>
+          <div class="two-col">
+            <div class="result-metric">
+              <div class="result-label" id="period-label2">Monthly</div>
+              <div class="result-value" id="monthly-out2">$50</div>
+            </div>
+            <div class="result-metric">
+              <div class="result-label" id="annual-label2">Annual</div>
+              <div class="result-value" id="annual-out2">$600</div>
+            </div>
+          </div>
+          <p style="font-size:11px; color:var(--text-tertiary); font-weight:300; margin-top:14px; line-height:1.6;">A one-time $2,500 setup fee will be added at sign-up, covering data migration, configuration, and onboarding.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="tier-grid">
 
     <!-- BASIC -->
@@ -413,70 +475,253 @@
 
   </div>
 
-  <!-- ESTIMATOR -->
-  <div class="estimator-section">
-    <div class="estimator-title">Cost estimator</div>
-    <div class="estimator-sub">Select a plan and adjust seat counts to see your cost. The billing toggle above applies here too.</div>
-    <div class="estimator-body">
-      <div>
-        <div class="tier-select-row">
-          <button class="tier-pill active" onclick="setEstTier('basic')">Basic</button>
-          <button class="tier-pill" onclick="setEstTier('advanced')">Advanced</button>
-          <button class="tier-pill" onclick="setEstTier('pro')">Pro</button>
-          <button class="tier-pill" onclick="setEstTier('proplus')">Pro+</button>
-        </div>
+  <!-- SETUP FEE FOOTNOTE -->
+  <p style="text-align:center; font-size:11px; color:var(--text-tertiary); font-weight:300; margin-bottom:64px;">Requires an active YachtWay broker seat ($19/mo) or manager seat ($9/mo) per user.</p>
 
-        <div class="slider-group">
-          <div class="slider-label-row">
-            <span class="slider-label-text">Broker seats</span>
-            <span class="slider-value" id="broker-val">1</span>
-          </div>
-          <input type="range" id="broker-slider" min="1" max="5" step="1" value="1" oninput="updateCalc()">
-        </div>
-
-        <div class="slider-group" id="tech-group" style="display:none;">
-          <div class="slider-label-row">
-            <span class="slider-label-text">Tech seats</span>
-            <span class="slider-value" id="tech-val">1</span>
-          </div>
-          <input type="range" id="tech-slider" min="1" max="15" step="1" value="1" oninput="updateCalc()">
-        </div>
-
-        <div class="addon-row" id="wa-row" style="display:none;">
-          <div class="addon-left">
-            <label class="toggle-switch">
-              <input type="checkbox" id="wa-check" onchange="updateCalc()">
-              <span class="toggle-slider"></span>
-            </label>
-            <span class="addon-label">WhatsApp add-on</span>
-          </div>
-          <span class="addon-price-tag">$45/mo</span>
-        </div>
-
-        <div class="breakdown-section" id="breakdown"></div>
-        <div class="cap-note-est" id="cap-note"></div>
-      </div>
-
-      <div>
-        <div class="results-stack">
-          <div class="result-metric primary">
-            <div class="result-label" id="yr1-label">Year 1 total (incl. $2,500 setup)</div>
-            <div class="result-value" id="yr1-out">$3,100</div>
-            <div class="result-saving" id="yr1-saving">You save $0</div>
-          </div>
-          <div class="two-col">
-            <div class="result-metric">
-              <div class="result-label" id="period-label">Monthly</div>
-              <div class="result-value" id="monthly-out">$50</div>
-            </div>
-            <div class="result-metric">
-              <div class="result-label">Annual total</div>
-              <div class="result-value" id="annual-out">$600</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- COMPARISON TABLE -->
+  <div style="margin-bottom:80px;">
+    <div style="text-align:center; margin-bottom:36px;">
+      <div class="header-eyebrow">How we compare</div>
+      <h2 style="font-size:28px; font-weight:600; color:var(--charcoal); letter-spacing:-0.02em; margin-top:12px;">Built for marine. Priced to win.</h2>
+      <p style="font-size:14px; color:var(--text-secondary); font-weight:300; margin-top:8px; max-width:440px; margin-left:auto; margin-right:auto; line-height:1.7;">Other platforms were built for generic sales teams. YachtWay Connect was built for the way marine dealers actually work.</p>
     </div>
+
+    <div style="background:var(--white); border:1.5px solid var(--border); border-radius:20px; overflow:hidden;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px; table-layout:fixed;">
+        <colgroup>
+          <col style="width:34%">
+          <col style="width:22%">
+          <col style="width:22%">
+          <col style="width:22%">
+        </colgroup>
+        <thead>
+          <tr style="border-bottom:1.5px solid var(--border);">
+            <th style="padding:18px 24px; text-align:left; font-weight:500; color:var(--text-tertiary); font-size:11px; text-transform:uppercase; letter-spacing:0.08em;"></th>
+            <th style="padding:18px 16px; text-align:center; font-weight:600; color:var(--white); background:var(--charcoal); font-size:13px;">YachtWay Connect</th>
+            <th style="padding:18px 16px; text-align:center; font-weight:500; color:var(--text-secondary); font-size:13px;">HubSpot Pro</th>
+            <th style="padding:18px 16px; text-align:center; font-weight:500; color:var(--text-secondary); font-size:13px;">Zoho CRM</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- PRICING -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Pricing and commitment</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Price per broker seat</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--charcoal); background:rgba(34,34,45,0.02);">from $50/mo</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">$100/mo</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">$23–$40/mo</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Contract term</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">Monthly</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">Annual only</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">Annual only</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">eSignatures included</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Data migration included</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003; Included</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">$1,500</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Extra cost</td>
+          </tr>
+
+          <!-- MARINE INVENTORY -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Marine inventory</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">MLS inventory auto-sync</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">Native — automatic</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">HIN, LOA, engine hours as native fields</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Manual setup</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Manual setup</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Sea trial and survey scheduling</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Private vs public inventory layers</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Broker-tracked listing share links</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">MatchMaker buyer-to-vessel matching</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+
+          <!-- COMMUNICATIONS -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Communications</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">SMS capability</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">Built in — no 3rd party needed</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Requires Twilio</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Requires Twilio</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">WhatsApp built in</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Facebook Messenger built in</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Multi-channel automated sequences</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+          </tr>
+
+          <!-- MARKETING AND SOCIAL -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Marketing and social</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Email marketing — listings to campaigns</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">One click</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">Manual build</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">Manual build</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Social media planner and scheduling</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Separate product</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Ad Manager — Google, Facebook, LinkedIn</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Separate product</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Boat show NFC and QR lead capture</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">Built in</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+
+          <!-- SERVICE DEPARTMENT -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Service department</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Repair orders and parts tickets</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Technician time tracking from mobile</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Service video reports — film, approve, pay</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+
+          <!-- AI -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">AI</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">AI voice agent with live inventory context</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">&#10005;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">AI inbound lead qualification and routing</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Generic chatbot</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Generic chatbot</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">AI-generated follow-up drafts with vessel data</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Generic only</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Generic only</td>
+          </tr>
+
+          <!-- ACCOUNTING AND PAYMENTS -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Accounting and payments</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Xero and QuickBooks native sync</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Payments built in</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Add-on</td>
+          </tr>
+
+          <!-- SECURITY -->
+          <tr style="background:var(--off-white);">
+            <td colspan="4" style="padding:10px 24px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-tertiary);">Security and compliance</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">SOC 2 Type II certified</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">EU Data Privacy Framework certified</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-secondary);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Partial</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:14px 24px; color:var(--text-secondary); font-weight:300;">Full dealer data isolation</td>
+            <td style="padding:14px 16px; text-align:center; font-weight:500; color:var(--green); background:rgba(34,34,45,0.02);">&#10003;</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Shared environment</td>
+            <td style="padding:14px 16px; text-align:center; color:var(--text-tertiary);">Shared environment</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px; color:var(--text-tertiary); font-weight:300; margin-top:12px; text-align:center;">Competitor pricing based on published rates as of April 2026. HubSpot Sales Hub Pro at $100/user/mo. Zoho CRM Professional at $23/user/mo billed annually.</p>
   </div>
 
 </div>
@@ -520,12 +765,12 @@ function setEstTier(t) {
   document.querySelectorAll('.tier-pill').forEach((b,i) => {
     b.classList.toggle('active', ['basic','advanced','pro','proplus'][i] === t);
   });
-  const bs = document.getElementById('broker-slider');
+  const bs = document.getElementById('broker-slider2');
   bs.min = MINS[t]; bs.max = MAXS[t]; bs.value = MINS[t];
-  document.getElementById('tech-group').style.display = TECH[t] > 0 ? 'block' : 'none';
-  if (TECH[t] > 0) document.getElementById('tech-slider').value = 1;
-  document.getElementById('wa-row').style.display = t === 'basic' ? 'flex' : 'none';
-  document.getElementById('wa-check').checked = false;
+  document.getElementById('tech-group2').style.display = TECH[t] > 0 ? 'block' : 'none';
+  if (TECH[t] > 0) document.getElementById('tech-slider2').value = 1;
+  document.getElementById('wa-row2').style.display = t === 'basic' ? 'flex' : 'none';
+  document.getElementById('wa-check2').checked = false;
   updateCalc();
 }
 
@@ -534,12 +779,12 @@ function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
 function updateCalc() {
   const t             = estTier;
   const brokerRate    = isAnnual ? Math.round(BASE[t] * 0.75) : BASE[t];
-  const bs            = parseInt(document.getElementById('broker-slider').value);
-  const ts            = TECH[t] > 0 ? parseInt(document.getElementById('tech-slider').value) : 0;
-  const wa            = t === 'basic' && document.getElementById('wa-check').checked;
+  const bs            = parseInt(document.getElementById('broker-slider2').value);
+  const ts            = TECH[t] > 0 ? parseInt(document.getElementById('tech-slider2').value) : 0;
+  const wa            = t === 'basic' && document.getElementById('wa-check2').checked;
 
-  document.getElementById('broker-val').textContent = bs;
-  if (TECH[t] > 0) document.getElementById('tech-val').textContent = ts;
+  document.getElementById('broker-val2').textContent = bs;
+  if (TECH[t] > 0) document.getElementById('tech-val2').textContent = ts;
 
   const monthly        = bs * brokerRate + ts * TECH[t] + (wa ? 45 : 0);
   const annualDisc     = bs * Math.round(BASE[t] * 0.75) * 12 + ts * TECH[t] * 12 + (wa ? 45*12 : 0);
@@ -547,13 +792,13 @@ function updateCalc() {
   const annualDisplay  = isAnnual ? annualDisc : annualFull;
   const saving         = isAnnual ? (annualFull - annualDisc) : 0;
 
-  document.getElementById('monthly-out').textContent  = fmt(monthly);
-  document.getElementById('annual-out').textContent   = fmt(annualDisplay);
-  document.getElementById('yr1-out').textContent      = fmt(annualDisplay + 2500);
-  document.getElementById('period-label').textContent = isAnnual ? 'Effective monthly' : 'Monthly';
-  document.getElementById('yr1-label').textContent    = isAnnual ? 'Annual total (incl. $2,500 setup)' : 'Year 1 total (incl. $2,500 setup)';
+  document.getElementById('monthly-out2').textContent  = fmt(monthly);
+  document.getElementById('annual-out2').textContent   = fmt(annualDisplay);
+  document.getElementById('yr1-out2').textContent      = fmt(annualDisplay);
+  document.getElementById('period-label2').textContent = isAnnual ? 'Effective monthly' : 'Monthly';
+  document.getElementById('yr1-label2').textContent    = isAnnual ? 'Annual total (25% off)' : 'Annual total';
 
-  const savingEl = document.getElementById('yr1-saving');
+  const savingEl = document.getElementById('yr1-saving2');
   savingEl.textContent = 'You save ' + fmt(saving) + ' vs monthly billing';
   savingEl.classList.toggle('visible', isAnnual && saving > 0);
 
@@ -562,8 +807,8 @@ function updateCalc() {
   if (wa) rows += `<div class="breakdown-row"><span>WhatsApp</span><span>$45/mo</span></div>`;
   if (isAnnual) rows += `<div class="breakdown-row" style="color:var(--green);font-size:11px;"><span>25% annual discount applied</span><span></span></div>`;
   rows += `<div class="breakdown-row total"><span>Total</span><span>${fmt(monthly)}/mo</span></div>`;
-  document.getElementById('breakdown').innerHTML = rows;
-  document.getElementById('cap-note').textContent = CAPS[t];
+  document.getElementById('breakdown2').innerHTML = rows;
+  document.getElementById('cap-note2').textContent = CAPS[t];
 }
 
 function toggleCollapsible(trigger) {
